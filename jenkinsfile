@@ -60,12 +60,13 @@ dockerImage.push()
 
 }
 }
-stage('Deploy App') {
-      steps {
-        script {
-          kubernetesDeploy(configs: "nginx.yaml", kubeconfigId: "mykubeconfig")
+stage('Deploy to Kubernetes'){
+        steps{
+            sh 'gcloud container clusters get-credentials helloworld-gke \
+                --zone us-west1-a \
+                --project meta-router-280711'
+            sh 'kubectl apply -f deployment.yaml'
         }
-      }
     }
 }
 }
