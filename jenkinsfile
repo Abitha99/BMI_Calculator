@@ -3,7 +3,7 @@ environment {
 PROJECT_ID = 'meta-router-280711'
 CLUSTER_NAME = 'k8s-cluster'
 LOCATION = 'us-central1-c'
-CREDENTIALS_ID = 'Compute Engine default service account'
+CREDENTIALS_ID = 'bmi-app'
 registry = "ishu1108/docker-jenkins"
 registryCredential = 'dockerhub'
 dockerImage = ''
