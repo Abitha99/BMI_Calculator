@@ -3,7 +3,7 @@ environment {
 PROJECT_ID = 'meta-router-280711'
 CLUSTER_NAME = 'k8s-cluster'
 LOCATION = 'us-central1-c'
-CREDENTIALS_ID = 'meta-router-280711'
+CREDENTIALS_ID = 'Compute Engine default service account'
 registry = "ishu1108/docker-jenkins"
 registryCredential = 'dockerhub'
 dockerImage = ''
@@ -67,10 +67,11 @@ stage('Deploy to K8s') {
 			    sh 'pwd'
 			    sh "sed -i 's/tagversion/${env.BUILD_ID}/g' serviceLB.yaml"
 				sh "sed -i 's/tagversion/${env.BUILD_ID}/g' deployment.yaml"
+			    
+			    echo "Start deployment of deployment.yaml"
+			    step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, clusterName: env.CLUSTER_NAME, location: env.LOCATION, manifestPattern: 'deployment.yaml', credentialsId: env.CREDENTIALS_ID, verifyDeployments: true])
 			    echo "Start deployment of serviceLB.yaml"
 			    step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, clusterName: env.CLUSTER_NAME, location: env.LOCATION, manifestPattern: 'serviceLB.yaml', credentialsId: env.CREDENTIALS_ID, verifyDeployments: true])
-				echo "Start deployment of deployment.yaml"
-				step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, clusterName: env.CLUSTER_NAME, location: env.LOCATION, manifestPattern: 'deployment.yaml', credentialsId: env.CREDENTIALS_ID, verifyDeployments: true])
 			    echo "Deployment Finished ..."
 		    }
 	    }
