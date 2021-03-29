@@ -65,6 +65,7 @@ stage('Deploy to Kubernetes'){
             sh 'gcloud container clusters get-credentials k8s-cluster \
                 --zone us-central1-c \
                 --project meta-router-280711'
+            sh 'kubectl apply -f serviceLB.yaml'
             sh 'kubectl apply -f deployment.yaml'
         }
     }
