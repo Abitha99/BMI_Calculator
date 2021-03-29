@@ -16,7 +16,7 @@ spec:
   spec:
    containers:
    - name: myapp-app-loadbalancer
-     image: ameintu/devops:tagversion
+     image: gcr.io/meta-router-280711/helloworld-gke
      ports:
      - containerPort: 8080
 
@@ -32,4 +32,4 @@ spec:
   ports:
     - protocol: TCP
       port: 80
-      targetPort: 8080
+      targetPort: 8080,5000
