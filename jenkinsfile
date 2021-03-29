@@ -62,8 +62,8 @@ dockerImage.push()
 }
 stage('Deploy to Kubernetes'){
         steps{
-            sh 'gcloud container clusters get-credentials helloworld-gke \
-                --zone us-west1-a \
+            sh 'gcloud container clusters get-credentials k8s-cluster \
+                --zone us-central1-c \
                 --project meta-router-280711'
             sh 'kubectl apply -f deployment.yaml'
         }
